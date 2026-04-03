@@ -116,14 +116,27 @@ function ProductDetails() {
 
           <div className="form-group">
             <label>Quantité</label>
-            <input
-              type="number"
-              min="1"
-              max={safeStock || 1}
-              value={quantity}
-              onChange={handleQuantityChange}
-              disabled={safeStock < 1}
-            />
+            <div className="qty-control">
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity((prev) => Math.max(1, prev - 1))}
+    disabled={safeStock < 1}
+  >
+    -
+  </button>
+
+  <span className="qty-value">{quantity}</span>
+
+  <button
+    type="button"
+    className="qty-btn"
+    onClick={() => setQuantity((prev) => Math.min(safeStock, prev + 1))}
+    disabled={safeStock < 1}
+  >
+    +
+  </button>
+</div>
             {safeStock > 0 && (
               <small className="stock-note">
                 Quantité maximum disponible : {safeStock}
